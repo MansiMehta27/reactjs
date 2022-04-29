@@ -94,14 +94,65 @@ function App()
     //    console.log(res);
     // }
         //find//
-{
-                 let arr = [10,"mansi",20,30,40,50];
-                let res=arr.some((a)=>a>10);
-             console.log(res);
-}
-   
+// {
+//                  let arr = [10,"mansi",20,30,40,50];
+//                 let res=arr.some((a)=>a>10);
+//              console.log(res);
+// }
 
-  return (
+//map //
+
+// let arr = [3, 4, 5, 6];
+
+// for (let i = 0; i < arr.length; i++){
+//   arr[i] = arr[i] * 3;
+// }
+
+// console.log(arr); // [9, 12, 15, 18]
+
+// map function//
+
+    // let array = [
+    //   { id: 101, name: "Abacavir",quantity: 25,price: 150,expiry: 2022,status: true},
+    //   { id: 102, name: "Eltrombopag",quantity: 90,price: 550,expiry: 2021,status: true},
+    //   { id: 103,  name: "Meloxicam",quantity: 85,price: 450,expiry: 2020,status: false},
+    //    { id: 104, name: "Allopurinol",quantity: 50,price: 650,expiry: 2024,status: true},
+    //    { id: 105, name: "EPhenytoin",quantity: 65,price: 750,expiry: 2025,status: false},
+ 
+    // ];
+   
+    //     let map = array.map(x=>console.log(x.id,x.name,x.quantity,x.price,x.expiry,x.status));
+
+
+  
+    //filter//
+
+  //   function xdate(expiry) {
+  //     return expiry > 2022;
+  // }
+
+  // function func() {
+  //     let filtered = [2021,2022,2023,2024,2025].filter(xdate);
+  //    console.log(filtered);
+  // }
+  // func();
+
+
+
+  // employe data//
+
+  let  array1 = [150,300,450,500,600];
+
+
+  let salery = 0;
+  let sum = array1.reduce(
+  (prev, curr) => prev + curr,
+  salery
+);
+
+ console.log(sum);
+
+return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
