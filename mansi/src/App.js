@@ -60,6 +60,12 @@ function App() {
      .reduce((acc, d, i) => acc + d.bonus, 0);
 
   console.log(abc);
+  
+    let xyz = data
+  .filter((d, i) => d.salary+d.bonus)
+  .reduce((acc, d, i) => acc + d.salary+d.bonus, 0);
+
+   console.log(xyz);
 
 
 
@@ -85,7 +91,7 @@ function App() {
                 <td>{value.bonus}</td>
                 <td>{value.salary+value.bonus}</td>
               
-                {/* {index === 0 ? <td rowspan={data.length}>{abc}</td> : null} */}
+                {/* {index === 0 ? <td rowspan={data.length}>{xyz}</td> : null} */}
 
                           
                           
