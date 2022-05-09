@@ -3,24 +3,21 @@ import Cityfun from './Cityfun';
 
 function Countryfun({gdpval}) {
     const[Country, setContry]=useState('india')
-    const[gdp,setgdp]=useState(0)
+    // const[gdp,setgdp]=useState(0)
 
     const ChangeCountry=()=>{
            setContry('UK')
     }
     return (
        <>
-                     <div>
+        <div>
                     <p>Country[Function based componet] : {Country}</p>
                     <button onClick={()=>ChangeCountry()}>change</button>
 
-                    <p>gdp:{gdp}</p>
-                    <button onClick={()=>setgdp(gdpval)}>change</button>
+                    {/* <p>gdp:{gdp}</p>
+                    <button onClick={()=>setgdp(gdpval)}>change</button> */}
 
-                 
-
-
-        </div>
+         </div>
            <Cityfun fanpla={Country}/>
        </>
     );
