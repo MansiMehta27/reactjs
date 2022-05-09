@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
-import City from './City';
 
-function Cityfun(props) {
-    const [City,setCity]=useState('Delhi')
-    const[gst,setgst]=useState(8)
 
-    const ChangeCity=()=>{
-        setCity('surat')
-    }
+function Cityfun({fanpla}) {
+    // const [City,setCity]=useState('Dehli')
+    // // const[gst,setgst]=useState(8)
+
+    // const ChangeCity=()=>{
+    //     setCity('surat')
+    // }
 
     return (
         <div>
-                    <p>City:[Function based Componet]:{City}</p>
-                    <button onClick={()=>ChangeCity()}>Change</button>
-                    <p>gst:{gst}</p>
-                    <button onClick={()=>setgst(12)}>Change</button>
+                    
+                   {/* <p>City:[Function based Componet]:{City}</p>
+                     <button onClick={()=>ChangeCity()}>Change</button>
+                     <p>gst:{gst}</p>
+                    <button onClick={()=>setgst(12)}>Change</button> */}
+          
+             {
+                     fanpla==='india'?<p>famouse place:tajmahal</p>:<p>famouse place : london</p> 
+             }
                    
-        </div>
+          </div>
     );
 }
 

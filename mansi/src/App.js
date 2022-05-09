@@ -8,10 +8,10 @@ import Cityfun from './Container/Country/Cityfun';
 function App() {
  return (
     <>
-        <Country/>
-        <City/>
-        <Countryfun/>
-        <Cityfun/>
+        {/* <Country/>
+        <City/> */}
+        <Countryfun gdpval={9.53}/>
+        {/* <Cityfun/> */}
        
     </>
   );
