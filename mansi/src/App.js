@@ -5,6 +5,7 @@ import City from './Container/Country/City';
 import Countryfun from './Container/Country/Countryfun';
 import Cityfun from './Container/Country/Cityfun';
 import Branch from './Container/Country/Branch';
+import Timer from './Container/Country/Timer';
 
 function App() {
  return (
@@ -15,8 +16,8 @@ function App() {
         { 
           // <Cityfun/>   
         }
-        <Branch/>
-         
+        {/* <Branch/> */}
+         <Timer/>
     </>
   );
 }
