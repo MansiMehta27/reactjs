@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Timerfun(props) {
     const [time,setTime]=useState(new Date());
@@ -6,7 +6,6 @@ function Timerfun(props) {
     const tick=()=>{
         setTime(new Date())
     }
-
     useEffect(
         ()=>{
             //componetDidmount ,componetDidupdate
@@ -19,9 +18,9 @@ function Timerfun(props) {
     [time]);
     return (
         <div>
-                         {
-                              time.toLocaleTimeString()
-                         }
+               {
+                   time.toLocaleTimeString()
+               }
         </div>
     );
 }

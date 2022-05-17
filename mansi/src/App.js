@@ -6,6 +6,8 @@ import Countryfun from './Container/Country/Countryfun';
 import Cityfun from './Container/Country/Cityfun';
 import Branch from './Container/Country/Branch';
 import Timer from './Container/Country/Timer';
+import Timerfun from './Container/Country/Timerfun';
+
 
 
 function App() {
@@ -18,7 +20,8 @@ function App() {
           // <Cityfun/>   
         }
         {/* <Branch/> */}
-         <Timer/>
+         {/* <Timer/> */}
+         <Timerfun/>
          
     </>
   );
