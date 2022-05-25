@@ -11,26 +11,20 @@ function Login(props) {
     let Login ={
         email: yup.string().email("pls enter your email").required("pls enter valid mail"),
         password:yup.string().required("vaild email id"),
-     
     }
 
     let schema = yup.object(Login).shape({
         
     });
-    const SignupForm = () => {
-        const formik = useFormik({
-          initialValues: {
-            email: '',
-            password:'',
-
-          },
-          onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-          },
-        });
    
-
-     
+    const formik = useFormik({
+        initialValues: {
+          email: '',
+          password:'',
+        },
+    });
+        validationSchema={schema},
+        
     const [userType, setUserType] = useState('Login')
     const [Reset, setReset] = useState(false)
 
