@@ -7,6 +7,7 @@ import Contect from "./Container/Contect/Contect";
 import Department from "./Container/Departments/Department";
 import Doctors from "./Container/Doctors/Doctors";
 import Home from "./Container/Home/Home";
+import Login from "./Container/Login/Login";
 
 
 
@@ -21,6 +22,8 @@ function App() {
                             <Route exact path={"/about"}component={About}/>
                             <Route exact path={"/contect"}component={Contect}/>
                             <Route exact path={"/Auth"}component={Auth}/>
+                            <Route exact path={"/Login"}component={Login}/>
+
             </Switch>
             <Footer/>
             
