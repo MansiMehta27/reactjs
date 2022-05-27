@@ -1,37 +1,68 @@
 import React, { useState } from 'react';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
 import * as yup from 'yup';
-import { Formik,Form, useFormik } from 'formik';
+import { Formik, Form, useFormik } from 'formik';
 
 
 
 function Login(props) {
-    let Login = {
+
+    const [userType, setUserType] = useState('Login')
+    const [Reset, setReset] = useState(false)
+
+    const Login = {
         email: yup.string().email("enter valid email").required("pls enter mail"),
         password: yup.string().required("enter your password")
     }
 
-    let schema = yup.object().shape(Login);
+    const Signup = {
+        Name: yup.string().required("enter your name"),
+        email: yup.string().email("enter valid email").required("pls enter mail"),
+        password: yup.string().required("enter your password")
+    }
 
-    const formik = useFormik({
-        initialValues: {
+    let schema, initial;
+
+    if (userType === 'Login') {
+        schema = yup.object().shape(Login);
+        initial = {
             email: '',
             password: ''
-        },
+        }
+    }
+
+    else if (userType === 'Signup') {
+        schema = yup.object().shape(Signup);
+        initial = {
+            Name: '',
+            email: '',
+            password: '',
+            }
+    }
+    const handlelogin = (values)=>{
+        console.log("loginhandle",values);
+    }
+    const handlesignup=(values)=>{
+        console.log("signuphandle",values);
+    }
+
+    const formik = useFormik({
+        initialValues: initial,
         validationSchema: schema,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            if(userType==='login'){
+                handlelogin(values); 
+            }
+            else if(userType==='signup'){
+                handlesignup(values);  
+            }
+            // alert(JSON.stringify(values, null, 2));
         },
     });
 
     console.log(formik.errors.email);
-    console.log(formik.errors.password);
-    
 
-     const [userType, setUserType] = useState('Login')
-    const [Reset, setReset] = useState(false)
-
-    return (
+  return (
         <main id="main">
             <section id="appointment" className="appointment">
                 <div className="container">
@@ -48,7 +79,7 @@ function Login(props) {
 
                     <Formik values={formik}>
 
-                        <Form onClick={formik.handleSubmit}className="php-email-form">
+                        <Form onClick={formik.handleSubmit} className="php-email-form">
                             <div className="row flex-column align-items-center">
                                 {
                                     Reset ?
@@ -63,6 +94,11 @@ function Login(props) {
                                         <div className="col-md-4 form-group">
                                             <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                                             <div className="validate" />
+
+                                            {
+                                                formik.errors.name ? <p>enter your email</p> : null
+                                            }
+
                                         </div>
                                         :
                                         null
@@ -70,20 +106,24 @@ function Login(props) {
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
                                     <input type="email" onChange={formik.handleChange} className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
                                     <div className="validate" />
+
+                                    {
+                                        formik.errors.email ? <p>enter your email</p> : null
+                                    }
                                 </div>
-                               {
-                                formik.errors.email?<p>Please enter your email</p>:null
-                               }
+
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
                                     <input type="password" onChange={formik.handleChange} className="form-control" name="password" id="password" placeholder="Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                                     <div className="validate" />
+
+                                    {
+                                        formik.errors.password ? <p>enter your password</p> : null
+                                    }
+
                                 </div>
-                                {
-                                formik.errors.password?<p>Please enter your password</p>:null
-                               }
 
                             </div>
-                          
+
                             {
                                 Reset ?
                                     <>
