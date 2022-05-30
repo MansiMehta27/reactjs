@@ -1,7 +1,74 @@
-import React from 'react';
+import { Form, Formik, useFormik } from 'formik';
+import React, { useState } from 'react';
+import { Button, FormGroup, Input, Label } from 'reactstrap';
 
-function Contect(props) {
-    return (
+import * as yup from 'yup';
+
+function Login(props) {
+    const [useType, setUseType] = useState("Login");
+
+    let Login = {
+        email: yup.string().email("please enter valid email").required("please enter email"),
+        password: yup.string().required("please enter Password"),
+    }
+
+    let SignUp = {
+        name: yup.string().required("please Enter Name"),
+        email: yup.string().email("please enter valid email").required("please enter email"),
+        password: yup.string().required("please enter Password"),
+    }
+
+    let forgetPassowrd = {
+        email: yup.string().email("please enter valid email").required("please enter email"),
+    }
+
+    let schema, initiValue;
+
+    if(useType === "Login"){
+        schema = yup.object().shape(Login);
+        initiValue = {
+            email: "",
+            password: ""
+        }
+
+    }else if(useType === "SignUp"){
+        schema = yup.object().shape(SignUp);  
+        initiValue = {
+            name: "",
+            email: "",
+            password: ""
+        }      
+    }else if(useType === "forgetPassowrd"){
+        schema = yup.object().shape(forgetPassowrd); 
+        initiValue = {
+            email: ""
+        } 
+    }
+    
+    // const schema = yup.object().shape(Login);
+    
+    const formik = useFormik({
+        initialValues : initiValue,
+        validationSchema: schema,
+        onSubmit: (values, { resetForm }) => {
+            // alert(JSON.stringify(values, null, 2));
+            
+            if(useType === "Login"){
+                console.log("Successfully Login 👍");
+            }else if(useType === "SignUp"){
+                console.log("Successfully SignUp 👍");
+            }else if(useType === "forgetPassowrd"){
+                console.log("Successfully Forget Passowrd 👍");
+            }
+            resetForm()
+        },
+    });
+
+    console.log(formik.errors.email);
+
+
+ return (
+
         <main id="main">
             <section id="contact" className="contact">
                 <div className="container">
@@ -34,14 +101,18 @@ function Contect(props) {
                             </div>
                         </div>
                         <div className="col-lg-8 mt-5 mt-lg-0">
-                            <form action method="post" role="form" className="php-email-form">
+                           <Formik>
+                            <Form action method="post" role="form" className="php-email-form">
                                 <div className="row">
                                     <div className="col-md-6 form-group">
                                         <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required />
                                     </div>
+
+                                 
                                     <div className="col-md-6 form-group mt-3 mt-md-0">
                                         <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required />
                                     </div>
+
                                 </div>
                                 <div className="form-group mt-3">
                                     <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" required />
@@ -55,7 +126,9 @@ function Contect(props) {
                                     <div className="sent-message">Your message has been sent. Thank you!</div>
                                 </div>
                                 <div className="text-center"><button type="submit">Send Message</button></div>
-                            </form>
+                            </Form>
+                            </Formik>
+                       
                         </div>
                     </div>
                 </div>
