@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Icon } from '@mui/material';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import PersonIcon from '@mui/icons-material/Person';
+import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -64,12 +65,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
 
-export default function Layout({Children}) {
+export default function Layout({children}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -81,14 +81,12 @@ export default function Layout({Children}) {
     setOpen(false);
   };
     
-      let ListItem=[
-          {lable : 'medisin', to : "/medisin", Icon :'MedicalServicesIcon'},
-          {lable : 'medisin', to : "/medisin", Icon :'PersonIcon'},
-     ]
+  const items =[
+    {label: 'Medicine', icon:<MedicalServicesIcon/>,to:'/medisin'},
+    {label: 'Doctor', icon:<PersonIcon/>,to:'/doctors'}
+]
 
-      
-
-  return (
+    return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
@@ -127,20 +125,28 @@ export default function Layout({Children}) {
         </DrawerHeader>
         <Divider />
         <List>
-        {ListItem.map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
+          {items.map((l, i) => (
+            <ListItem key={i} component={NavLink} to = {l.to} exact disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    {l.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={l.label} sx={{ opacity: open ? 1 : 0 }}/>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        
       </Drawer>
-      {Children}
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <DrawerHeader />
+      {children}
+      </Box>
     </Box>
   );
 }
