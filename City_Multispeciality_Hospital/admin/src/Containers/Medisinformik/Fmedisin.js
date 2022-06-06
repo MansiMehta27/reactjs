@@ -9,8 +9,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import * as yup from 'yup';
-
 
  function Medisin(props){
   const [open, setOpen] = useState(false);
@@ -21,7 +19,7 @@ import * as yup from 'yup';
   const [expiry, setexpiry] = useState('');
   const [data, setdata] = useState([]);
   const [did, setdid]= useState();
- 
+
   const handleClickOpen = () => {
     setOpen(true);
   };
