@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -6,84 +6,84 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import * as yup from 'yup';
+import { useEffect } from 'react';
 
-
- function Medisin(props){
+function Medisin(props) {
   const [open, setOpen] = useState(false);
-  const [dopen, setdOpen] = useState(false);
+  const[dopen, setdopen]=useState(false);
   const [name, setname] = useState('');
   const [price, setprice] = useState('');
   const [quantity, setquantity] = useState('');
   const [expiry, setexpiry] = useState('');
   const [data, setdata] = useState([]);
-  const [did, setdid]= useState();
- 
+  const[did,setdid]=useState();
+  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setdOpen(false);
+    setdopen(false);
   };
-  const handledClickOpen = (params) => {
-    setdOpen(true);
-    setdid(params.id);
-  }
 
-    const getdata = () => {
-    let localData = JSON.parse(localStorage.getItem('medicine'));
-    if (localData !== null) {
-      setdata(localData)
+  const handledClickOpen = (params) => {
+    setdopen(true);
+    setdid(params.id);
+  };
+  const getdata = () => {
+
+    let localdata = JSON.parse(localStorage.getItem('medicine'));
+    if (localdata !== null) {
+      setdata(localdata);
     }
-}
-const handleDelete=(params)=>{
-      let localData1=JSON.parse(localStorage.getItem('medicine'));
-      let appdata=localData1.filter((l,i)=>l.id!==did);
-      localStorage.setItem("medicine", JSON.stringify(appdata));
-      setdid();
-      getdata();
-      handleClose();
-}
+  }
+  const handleDelet =(params)=>{
+      let localdata1=JSON.parse(localStorage.getItem("medicine"));
+     let appdata = localdata1.filter((l,i)=>l.id!==did);
+     localStorage.setItem("medicine",JSON.stringify(appdata));
+    getdata();
+    setdid('');
+    handleClose('');
+  }
   useEffect(
     () => {
       getdata();
     },
-    [])
+  [])
+  const handlesubmit = () => {
 
-  const handleSubmit = () => {
-    console.log(name,price,quantity,expiry);
+    console.log(name,price,quantity,expiry)
     let data = {
       id: Math.floor(Math.random() * 1000),
       name,
       price,
       quantity,
       expiry
-
     };
 
-    // localStorage.setItem('medicine' ,JSON.stringify(data));
-   let localData = JSON.parse(localStorage.getItem('medicine'))
-
-    if (localData === null) {
+    let localdata = JSON.parse(localStorage.getItem('medicine'));
+    if (localdata === null) {
       localStorage.setItem('medicine', JSON.stringify([data]));
-
     }
     else {
-      localData.push(data)
-      localStorage.setItem('medicine', JSON.stringify(localData));
+      localdata.push(data)
+      localStorage.setItem('medicine', JSON.stringify(localdata));
     }
+
     handleClose();
     setname('');
     setprice('');
-    setexpiry('');
     setquantity('');
+    setexpiry('');
     getdata();
-   
+    
+    // console.log(data);
   }
 
   const columns = [
@@ -92,20 +92,25 @@ const handleDelete=(params)=>{
     { field: 'price', headerName: 'Price', width: 130 },
     { field: 'quantity', headerName: 'Quantity', width: 130 },
     { field: 'expiry', headerName: 'Expiry', width: 130 },
-    { field: 'action', headerName: 'Action', width: 130, renderCell:(params)=>{
-      return(
-        <IconButton aria-label="delete"onClick={()=>handledClickOpen(params)}>
-        <DeleteIcon />
-      </IconButton>
-      )
-    } }
-
-  ];
+    {
+      field: 'action',
+      headerName: 'Action',
+      width: 130,
+      renderCell: (params) => {
+        return (
+          <IconButton aria-label="delete" onClick={()=>handledClickOpen(params)}>
+            <DeleteIcon />
+          </IconButton>
+        )
+      }
+    },
+  ]
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Add medisin
+        add medisin
       </Button>
+
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={data}
@@ -116,15 +121,16 @@ const handleDelete=(params)=>{
         />
       </div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add medisi </DialogTitle>
+        <DialogTitle>medisin data</DialogTitle>
         <DialogContent>
 
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            name="name"
-            label="name"
+            name='name'
+            label="Medisin Name"
+            type="name"
             fullWidth
             variant="standard"
             onChange={(e) => setname(e.target.value)}
@@ -133,8 +139,9 @@ const handleDelete=(params)=>{
             autoFocus
             margin="dense"
             id="name"
-            name="price"
-            label="medisin price"
+            name='price'
+            label="Medisin Price"
+            type="price"
             fullWidth
             variant="standard"
             onChange={(e) => setprice(e.target.value)}
@@ -143,44 +150,46 @@ const handleDelete=(params)=>{
             autoFocus
             margin="dense"
             id="name"
-            name="quantity"
-            label="quantity"
+            name='quantity'
+            label="Medisin Quantity"
+            type="quantity"
             fullWidth
             variant="standard"
-            onChange={(e) => setexpiry(e.target.value)}
+            onChange={(e) => setquantity(e.target.value)}
           />
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            name="expiry"
-            label="expiry"
+            name='expiry'
+            label="Medisin Expiry"
+            type="expiry"
             fullWidth
             variant="standard"
-            onChange={(e) => setquantity(e.target.value)}
-
+            onChange={(e) => setexpiry(e.target.value)}
           />
+
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button onClick={handlesubmit}>submit</Button>
         </DialogActions>
       </Dialog>
-       <Dialog
+      <Dialog
         open={dopen}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Are u sure delete?"}
+          {"are u sure delete?"}
         </DialogTitle>
-        <DialogContent>
-        </DialogContent>
+
         <DialogActions>
-          <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleDelete} autoFocus>
-            Yes
+          <Button onClick={handleClose}>no</Button>
+          <Button onClick={handleDelet} autoFocus>
+            yes
           </Button>
         </DialogActions>
       </Dialog>
