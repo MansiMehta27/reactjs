@@ -83,7 +83,8 @@ export default function Layout({children}) {
     
   const items =[
     {label: 'Medicine', icon:<MedicalServicesIcon/>,to:'/medisin'},
-    {label: 'Doctor', icon:<PersonIcon/>,to:'/doctors'}
+    {label: 'Doctor', icon:<PersonIcon/>,to:'/doctors'},
+    {label:"Fmedisin",icon:<MedicalServicesIcon/>,to:'/fmedicine'}
 ]
 
     return (
