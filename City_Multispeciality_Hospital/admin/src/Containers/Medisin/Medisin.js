@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect } from 'react';
 
-function Medisin(props) {
+  function Medisin(props) {
   const [open, setOpen] = useState(false);
   const[dopen, setdopen]=useState(false);
   const [name, setname] = useState('');
@@ -22,7 +22,7 @@ function Medisin(props) {
   const [data, setdata] = useState([]);
   const[did,setdid]=useState();
   
-
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -127,7 +127,6 @@ function Medisin(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
             name='name'
             label="Medisin Name"
             type="name"
@@ -138,7 +137,6 @@ function Medisin(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
             name='price'
             label="Medisin Price"
             type="price"
@@ -149,7 +147,6 @@ function Medisin(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
             name='quantity'
             label="Medisin Quantity"
             type="quantity"
@@ -160,7 +157,6 @@ function Medisin(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
             name='expiry'
             label="Medisin Expiry"
             type="expiry"
