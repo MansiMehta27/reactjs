@@ -12,7 +12,7 @@ function Privateroute({component: Component,...rest}) {
       )
 }       
       />
-    );
+  );
 }
 
 export default Privateroute;
