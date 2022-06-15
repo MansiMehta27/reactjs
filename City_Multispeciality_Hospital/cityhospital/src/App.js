@@ -12,7 +12,6 @@ import Doctors from "./Container/Doctors/Doctors";
 import Home from "./Container/Home/Home";
 import Login from "./Container/Login/Login";
 import Medisin from "./Container/Medisin/Medisin";
-import Makeanappointment from "./Makeanappoinment/Makeanappointment";
 import Privateroute from "./Route/Privateroute.js/Privateroute";
 import Publicroute from "./Route/Publicroute.js/Publicroute";
 
@@ -29,7 +28,6 @@ function App() {
                           <Publicroute exact path={"/about"}component={About}/>
                           <Publicroute restricted={true} exact path={"/login"}component={Login}/>
                           <Publicroute exact path={"/medisin"}component={Medisin}/>
-                          <Privateroute exact path={"/makeanappointment"}component={Makeanappointment}/>
                           <Route exact path={"/contect"}component={Contect}/>
                           <Privateroute exact path={"/bookappointment"}component={Bookappointment}/>
                           <Privateroute exact path={"/listappointment"}component={LIstappointment}/>
