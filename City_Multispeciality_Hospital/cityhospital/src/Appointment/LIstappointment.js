@@ -43,10 +43,10 @@ function Listappointment(props) {
 
                     <div className='row text-center'>
                             <div className='col-6 pb-4'>
-                            <NavLink to={"/bookappointment"}className="appointment-btn scrollto">Bookappointment</NavLink>
+                            <NavLink to={"/bookappointment"} activeClassName={"actbtn"}>Bookappointment</NavLink>
                             </div>
                             <div className='col-6 pb-4'>
-                            <NavLink to={"/listappointment"}className="appointment-btn scrollto">listappointment</NavLink>
+                            <NavLink to={"/listappointment"} activeClassName={"actbtn"}>listappointment</NavLink>
                             </div>
                     </div>
 

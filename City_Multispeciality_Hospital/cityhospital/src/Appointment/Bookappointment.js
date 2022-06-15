@@ -1,12 +1,13 @@
 import { Form, Formik, useFormik } from 'formik';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
 function Bookappointment(props) {
+     const history =useHistory();
 
-    const handleInsult =()=>{
-            
+    const handleInsert =()=>{
+           history.push("/listappointment");
     }
 
     let schema = yup.object().shape({
@@ -46,10 +47,10 @@ function Bookappointment(props) {
 
                     <div className='row text-center'>
                         <div className='col-6 pb-4'>
-                            <NavLink to={"/bookappointment"} className="appointment-btn scrollto">Bookappointment</NavLink>
+                            <NavLink to={"/bookappointment"} activeClassName={"actbtn"}>Bookappointment</NavLink>
                         </div>
                         <div className='col-6 pb-4'>
-                            <NavLink to={"/listappointment"} className="appointment-btn scrollto">listappointment</NavLink>
+                            <NavLink to={"/listappointment"} activeClassName={"actbtn"}>listappointment</NavLink>
                         </div>
                     </div>
 
@@ -140,9 +141,9 @@ function Bookappointment(props) {
                                 <div className="error-message" />
                                 <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                             </div>
-                            <div className="text-center"><button onClick={handleInsult()}>Submit</button></div>
+                            <div className="text-center"><button onClick={handleInsert}>Submit</button></div>
                         </Form>
-                    </Formik>
+                        </Formik>
                 </div>
             </section>
         </main>
