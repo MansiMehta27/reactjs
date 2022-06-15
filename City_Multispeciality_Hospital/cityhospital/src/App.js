@@ -1,5 +1,7 @@
 import { connect } from "formik";
 import { Route, Switch } from "react-router-dom";
+import Bookappointment from "./Appointment/Bookappointment";
+import LIstappointment from "./Appointment/LIstappointment";
 import Footer from "./Componets/Header/Footer/Footer";
 import Header from "./Componets/Header/Header";
 import About from "./Container/About/About";
@@ -29,6 +31,8 @@ function App() {
                           <Publicroute exact path={"/medisin"}component={Medisin}/>
                           <Privateroute exact path={"/makeanappointment"}component={Makeanappointment}/>
                           <Route exact path={"/contect"}component={Contect}/>
+                          <Privateroute exact path={"/bookappointment"}component={Bookappointment}/>
+                          <Privateroute exact path={"/listappointment"}component={LIstappointment}/>
                            
             </Switch>
             <Footer/>
