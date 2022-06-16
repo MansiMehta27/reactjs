@@ -1,12 +1,13 @@
 import { Form, Formik, useFormik } from 'formik';
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink,useHistory } from 'react-router-dom';
 import * as yup from 'yup';
+import Inputbox from '../../components/Input/Inputbox';
 
 function Bookappointment(props) {
      const history =useHistory();
 
-    const handleInsert =()=>{
+     const handleInsert =()=>{
            history.push("/listappointment");
     }
 
@@ -32,11 +33,9 @@ function Bookappointment(props) {
         },
     });
 
-     
-
     return (
-        <main id="main">
-            <section id="appointment" className="appointment">
+    <main id="main">
+         <section id="appointment" className="appointment">
                 <div className="container">
                     <div className="section-title">
                         <h2>Make an Appointment</h2>
@@ -67,6 +66,7 @@ function Bookappointment(props) {
                                         data-rule="minlen:4"
                                         data-msg="Please enter at least 4 chars"
                                         onChange={formik.handleChange}
+            
                                         value={formik.values.name} />
                                     {
                                         formik.errors.name ? <p className='error'>{formik.errors.name}</p> : null
