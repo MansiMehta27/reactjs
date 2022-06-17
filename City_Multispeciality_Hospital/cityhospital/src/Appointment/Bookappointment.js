@@ -16,21 +16,48 @@ function Bookappointment(props) {
         email: yup.string().email("please enter valid email").required("please enter email"),
         phone: yup.number().required("please enter number"),
         date: yup.string().required("please select date"),
-        department: yup.string().required("please select department")
+        department: yup.string().required("please select department"),
+        message: yup.string().required("please select message")
     });
 
     const formik = useFormik({
-        initialValues: {
+        initialValues:{
             name: '',
             email: '',
             phone: '',
             date: '',
             department: '',
+            message:''
         },
 
         validationSchema: schema,
         onSubmit: values => {
             handleInsert(values)
+            const {
+                 name,
+                 email,
+                 phone,
+                 date,
+                 department,
+                 message
+            }=values;
+            let data = {
+                    name,
+                    email,
+                    phone,
+                    date,
+                    department,
+                    message
+            }
+            let appoinData = JSON.parse(localStorage.getItem('appointment'));
+            if(appoinData == null){
+                localStorage.setItem('appointment',JSON.stringify([data]));
+            }
+            else{
+                appoinData.push(data)
+                localStorage.setItem('appointment',JSON.stringify(appoinData));
+            }
+
         },
     });
 
@@ -107,7 +134,9 @@ function Bookappointment(props) {
                                         onChange={handleChange} />
                                 </div>
                                 <div className="col-md-4 form-group mt-3">
-                                    <Inputbox type='select' name="department" id="department" className="form-select" onChange={handleChange}>
+                                    <Inputbox type='select' name="department" id="department" className="form-select" error={Boolean(errors.department)}
+                                        errorMessage={errors.department}
+                                        onChange={handleChange} >
                                         <option value>Select Department</option>
                                         <option value="Department 1">Department 1</option>
                                         <option value="Department 2">Department 2</option>
@@ -122,7 +151,9 @@ function Bookappointment(props) {
                                     name="message" rows={5}
                                     placeholder="Message (Optional)"
                                     defaultValue={""}
-                                    onChange={handleChange} />
+                                    error={Boolean(errors.message)}
+                                        errorMessage={errors.message}
+                                        onChange={handleChange}  />
                             </div>
                             <div className="mb-3">
                                 <div className="loading">Loading</div>
