@@ -6,10 +6,20 @@ import Inputbox from '../Componets/Input/Inputbox';
 
 function Bookappointment(props) {
      const history =useHistory();
-
-     const handleInsert =()=>{
+     
+     const handleInsert =(values)=>{
+        let appoinData = JSON.parse(localStorage.getItem('apt'));
+            if(appoinData == null){
+                localStorage.setItem('apt',JSON.stringify([values]));
+            }
+            else{
+                appoinData.push(values)
+                localStorage.setItem('apt',JSON.stringify(appoinData));
+            }
            history.push("/listappointment");
     }
+
+
 
     let schema = yup.object().shape({
         name: yup.string().required("please enter name"),
@@ -33,35 +43,35 @@ function Bookappointment(props) {
         validationSchema: schema,
         onSubmit: values => {
             handleInsert(values)
-            const {
-                 name,
-                 email,
-                 phone,
-                 date,
-                 department,
-                 message
-            }=values;
-            let data = {
-                    name,
-                    email,
-                    phone,
-                    date,
-                    department,
-                    message
-            }
-            let appoinData = JSON.parse(localStorage.getItem('appointment'));
-            if(appoinData == null){
-                localStorage.setItem('appointment',JSON.stringify([data]));
-            }
-            else{
-                appoinData.push(data)
-                localStorage.setItem('appointment',JSON.stringify(appoinData));
-            }
+            // const {
+            //      name,
+            //      email,
+            //      phone,
+            //      date,
+            //      department,
+            //      message
+            // }=values;
+            // let data = {
+            //         name,
+            //         email,
+            //         phone,
+            //         date,
+            //         department,
+            //         message
+            // }
+            // let appoinData = JSON.parse(localStorage.getItem('appointment'));
+            // if(appoinData == null){
+            //     localStorage.setItem('appointment',JSON.stringify([data]));
+            // }
+            // else{
+            //     appoinData.push(data)
+            //     localStorage.setItem('appointment',JSON.stringify(appoinData));
+            // }
 
         },
     });
 
-    const {handleSubmit, handleChange, errors}=formik;
+    const {handleSubmit, handleChange, handleBlur, errors, touched}=formik;
 
     return (
     <main id="main">
@@ -93,9 +103,11 @@ function Bookappointment(props) {
                                         className="form-control"
                                         id="name"
                                         placeholder="Your Name"
-                                        error={Boolean(errors.name)}
+                                        error={Boolean(errors.name && touched.name)}
                                         errorMessage={errors.name}
-                                        onChange={handleChange} />
+                                        onChange={handleChange} 
+                                        onBlur={handleBlur}
+                                        />
                                 </div>
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
                                     <Inputbox
@@ -104,9 +116,11 @@ function Bookappointment(props) {
                                         name="email"
                                         id="email"
                                         placeholder="Your Email"
-                                        error={Boolean(errors.name)}
-                                        errorMessage={errors.name}
-                                        onChange={handleChange} />
+                                        error={Boolean(errors.email && touched.email)}
+                                        errorMessage={errors.email}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur} 
+                                        />
                                 </div>
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
                                     <Inputbox
@@ -116,9 +130,11 @@ function Bookappointment(props) {
                                         id="phone"
                                         maxLength={10}
                                         placeholder="Your Phone"
-                                        error={Boolean(errors.name)}
-                                        errorMessage={errors.name}
-                                        onChange={handleChange} />
+                                        error={Boolean(errors.phone && touched.phone)}
+                                        errorMessage={errors.phone}
+                                        onChange={handleChange} 
+                                        onBlur={handleBlur}
+                                        />
                                 </div>
                             </div>
                             <div className="row">
@@ -129,14 +145,18 @@ function Bookappointment(props) {
                                         className="form-control datepicker"
                                         id="date"
                                         placeholder="Appointment Date"
-                                        error={Boolean(errors.name)}
-                                        errorMessage={errors.name}
-                                        onChange={handleChange} />
+                                        error={Boolean(errors.date && touched.date)}
+                                        errorMessage={errors.date}
+                                        onChange={handleChange} 
+                                        onBlur={handleBlur}
+                                        />
                                 </div>
                                 <div className="col-md-4 form-group mt-3">
-                                    <Inputbox type='select' name="department" id="department" className="form-select" error={Boolean(errors.department)}
+                                    <Inputbox type='select' name="department" id="department" className="form-select" error={Boolean(errors.department && touched.department)}
                                         errorMessage={errors.department}
-                                        onChange={handleChange} >
+                                        onChange={handleChange} 
+                                        onBlur={handleBlur}
+                                        >
                                         <option value>Select Department</option>
                                         <option value="Department 1">Department 1</option>
                                         <option value="Department 2">Department 2</option>
@@ -151,9 +171,11 @@ function Bookappointment(props) {
                                     name="message" rows={5}
                                     placeholder="Message (Optional)"
                                     defaultValue={""}
-                                    error={Boolean(errors.message)}
+                                    error={Boolean(errors.message && touched.message)}
                                         errorMessage={errors.message}
-                                        onChange={handleChange}  />
+                                        onChange={handleChange}  
+                                        onBlur={handleBlur}
+                                        />
                             </div>
                             <div className="mb-3">
                                 <div className="loading">Loading</div>

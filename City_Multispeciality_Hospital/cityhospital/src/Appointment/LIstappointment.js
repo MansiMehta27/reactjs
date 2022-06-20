@@ -1,34 +1,25 @@
 import { Form, Formik, useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
-
 function Listappointment(props) {
+    const [data, setdata] = useState([]);
+    const localdata = () => {
+        let localdata = JSON.parse(localStorage.getItem(("apt")))
 
-    
+        setdata(localdata)
+    }
 
-    let schema = yup.object().shape({
-        name: yup.string().required("please enter name"),
-        email: yup.string().email("please enter valid email").required("please enter email"),
-        phone: yup.number().required("please enter number"),
-        date: yup.string().required("please select date"),
-        department: yup.string().required("please select department")
-    });
+        useEffect(() => {
 
-    const formik = useFormik({
-        initialValues: {
-            name: '',
-            email: '',
-            phone: '',
-            date: '',
-            department: '',
-        },
-        validationSchema: schema,
-        onSubmit: values => {
-            console.log(JSON.stringify(values, null, 2));
-        },
-    });
+
+        localdata();
+
+    },
+
+        [])
+
 
     return (
         <main id="main">
@@ -42,15 +33,25 @@ function Listappointment(props) {
                     </div>
 
                     <div className='row text-center'>
-                            <div className='col-6 pb-4'>
+                        <div className='col-6 pb-4'>
                             <NavLink to={"/bookappointment"} activeClassName={"actbtn"}>Bookappointment</NavLink>
-                            </div>
-                            <div className='col-6 pb-4'>
+                        </div>
+                        <div className='col-6 pb-4'>
                             <NavLink to={"/listappointment"} activeClassName={"actbtn"}>listappointment</NavLink>
-                            </div>
+                        </div>
                     </div>
 
                 </div>
+                {
+                    data.map((d, i) => {
+                         return ( 
+                            <>
+                             <h1>{d.name}</h1>
+                            </>
+                         )
+                    }
+                    )
+                }
             </section>
         </main>
 
