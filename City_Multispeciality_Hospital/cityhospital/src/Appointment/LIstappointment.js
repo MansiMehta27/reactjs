@@ -4,24 +4,36 @@ import { NavLink, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
 function Listappointment(props) {
+    const history=useHistory();
+    
     const [data, setdata] = useState([]);
     const localdata = () => {
-        let localdata = JSON.parse(localStorage.getItem(("apt")))
+        let localdata = JSON.parse(localStorage.getItem("apt"))
 
-        setdata(localdata)
+        setdata(localdata);
+    }
+   const handleDelete = (id)=>{
+
+       let localdata = JSON.parse(localStorage.getItem("apt"));
+       let ddata = localdata.filter((l,i)=>l.id !==id );
+
+       localStorage.setItem("apt",JSON.stringify(ddata));
+
+       localdata();
+
     }
 
-        useEffect(() => {
+     const handleEdit = (id)=>{
+      
+        
+    }
 
-
+    useEffect(() => {
         localdata();
+        },
+    [])
 
-    },
-
-        [])
-
-
-    return (
+return (
         <main id="main">
             <section id="appointment" className="appointment">
                 <div className="container">
@@ -44,14 +56,18 @@ function Listappointment(props) {
                 </div>
                 {
                     data.map((d, i) => {
-                         return ( 
+                        return (
                             <>
-                             <h1>{d.name}</h1>
+                                <h4>{d.name}</h4>
+
+                              <button onClick={()=>handleDelete(d.id)}>Delete</button>
+                              <button onClick={()=>handleEdit(d.id)}>Edit</button>
                             </>
-                         )
+                        )
                     }
                     )
                 }
+
             </section>
         </main>
 

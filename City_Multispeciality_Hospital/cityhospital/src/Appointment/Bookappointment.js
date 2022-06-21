@@ -5,10 +5,18 @@ import * as yup from 'yup';
 import Inputbox from '../Componets/Input/Inputbox';
 
 function Bookappointment(props) {
-     const history =useHistory();
-     
+    
+    const history =useHistory()
+
      const handleInsert =(values)=>{
+
+        let idata={
+            id : Math.floor(Math.random()*1000),
+            ...values,
+        }
+        
         let appoinData = JSON.parse(localStorage.getItem('apt'));
+        
             if(appoinData == null){
                 localStorage.setItem('apt',JSON.stringify([values]));
             }
@@ -43,35 +51,10 @@ function Bookappointment(props) {
         validationSchema: schema,
         onSubmit: values => {
             handleInsert(values)
-            // const {
-            //      name,
-            //      email,
-            //      phone,
-            //      date,
-            //      department,
-            //      message
-            // }=values;
-            // let data = {
-            //         name,
-            //         email,
-            //         phone,
-            //         date,
-            //         department,
-            //         message
-            // }
-            // let appoinData = JSON.parse(localStorage.getItem('appointment'));
-            // if(appoinData == null){
-            //     localStorage.setItem('appointment',JSON.stringify([data]));
-            // }
-            // else{
-            //     appoinData.push(data)
-            //     localStorage.setItem('appointment',JSON.stringify(appoinData));
-            // }
-
         },
     });
 
-    const {handleSubmit, handleChange, handleBlur, errors, touched}=formik;
+   const {handleSubmit, handleChange, handleBlur, errors, touched}=formik;
 
     return (
     <main id="main">
@@ -92,8 +75,7 @@ function Bookappointment(props) {
                             <NavLink to={"/listappointment"} activeClassName={"actbtn"}>listappointment</NavLink>
                         </div>
                     </div>
-
-                    <Formik values={formik}>
+                        <Formik values={formik}>
                         <Form onSubmit={handleSubmit} className="php-email-form">
                             <div className="row">
                                 <div className="col-md-4 form-group">
