@@ -1,5 +1,5 @@
 import { Form, Formik, useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink,useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import Inputbox from '../Componets/Input/Inputbox';
@@ -18,16 +18,14 @@ function Bookappointment(props) {
         let appoinData = JSON.parse(localStorage.getItem('apt'));
         
             if(appoinData == null){
-                localStorage.setItem('apt',JSON.stringify([values]));
+                localStorage.setItem('apt',JSON.stringify([idata]));
             }
             else{
-                appoinData.push(values)
+                appoinData.push(idata)
                 localStorage.setItem('apt',JSON.stringify(appoinData));
             }
            history.push("/listappointment");
     }
-
-
 
     let schema = yup.object().shape({
         name: yup.string().required("please enter name"),
@@ -53,8 +51,18 @@ function Bookappointment(props) {
             handleInsert(values)
         },
     });
+    useEffect(()=>{
+        if(props.location.state){
+            let localdata=JSON.parse(localStorage.getItem("apt"));
+            let ddata = localdata.filter((l)=>l.id===props.location.state.id);
+            formik.setValues(ddata[0]);
+        }
+    }
 
-   const {handleSubmit, handleChange, handleBlur, errors, touched}=formik;
+    )
+    
+
+   const {handleSubmit, handleChange, handleBlur, errors, touched,values}=formik;
 
     return (
     <main id="main">
@@ -84,6 +92,7 @@ function Bookappointment(props) {
                                         name="name"
                                         className="form-control"
                                         id="name"
+                                        value={values.name}
                                         placeholder="Your Name"
                                         error={Boolean(errors.name && touched.name)}
                                         errorMessage={errors.name}
@@ -97,6 +106,7 @@ function Bookappointment(props) {
                                         className="form-control"
                                         name="email"
                                         id="email"
+                                        value={values.email}
                                         placeholder="Your Email"
                                         error={Boolean(errors.email && touched.email)}
                                         errorMessage={errors.email}
@@ -110,6 +120,7 @@ function Bookappointment(props) {
                                         className="form-control"
                                         name="phone"
                                         id="phone"
+                                        value={values.phone}
                                         maxLength={10}
                                         placeholder="Your Phone"
                                         error={Boolean(errors.phone && touched.phone)}
@@ -126,6 +137,7 @@ function Bookappointment(props) {
                                         name="date"
                                         className="form-control datepicker"
                                         id="date"
+                                        value={values.date}
                                         placeholder="Appointment Date"
                                         error={Boolean(errors.date && touched.date)}
                                         errorMessage={errors.date}
@@ -138,6 +150,7 @@ function Bookappointment(props) {
                                         errorMessage={errors.department}
                                         onChange={handleChange} 
                                         onBlur={handleBlur}
+                                        value={values.message}
                                         >
                                         <option value>Select Department</option>
                                         <option value="Department 1">Department 1</option>
@@ -153,11 +166,12 @@ function Bookappointment(props) {
                                     name="message" rows={5}
                                     placeholder="Message (Optional)"
                                     defaultValue={""}
+                                    value={values.message}
                                     error={Boolean(errors.message && touched.message)}
                                         errorMessage={errors.message}
                                         onChange={handleChange}  
                                         onBlur={handleBlur}
-                                        />
+                                     />
                             </div>
                             <div className="mb-3">
                                 <div className="loading">Loading</div>

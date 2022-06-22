@@ -5,10 +5,9 @@ import * as yup from 'yup';
 
 function Listappointment(props) {
     const history=useHistory();
-    
     const [data, setdata] = useState([]);
-    const localdata = () => {
-        let localdata = JSON.parse(localStorage.getItem("apt"))
+    const loadData = () => {
+        let localdata = JSON.parse(localStorage.getItem("apt"));
 
         setdata(localdata);
     }
@@ -19,17 +18,15 @@ function Listappointment(props) {
 
        localStorage.setItem("apt",JSON.stringify(ddata));
 
-       localdata();
-
+       loadData();
     }
-
-     const handleEdit = (id)=>{
-      
+        const handleEdit = (id)=>{
+        history.push("/bookappointment",{"id":id})
         
     }
 
     useEffect(() => {
-        localdata();
+        loadData();
         },
     [])
 
@@ -59,6 +56,9 @@ return (
                         return (
                             <>
                                 <h4>{d.name}</h4>
+                                <h4>{d.email}</h4>
+                                <h4>{d.phone}</h4>
+                                <h4>{d.department}</h4>
 
                               <button onClick={()=>handleDelete(d.id)}>Delete</button>
                               <button onClick={()=>handleEdit(d.id)}>Edit</button>
