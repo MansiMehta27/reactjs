@@ -5,37 +5,34 @@ import * as yup from 'yup';
 import Inputbox from '../Componets/Input/Inputbox';
 
 function Bookappointment(props) {
-    const [update, setUpdate]=useState(false)
-    const history = useHistory()
+     const[update, setUpdate] = useState(false)
+    const history = useHistory();
+    
+    const handleInsert = (values) =>{
 
-    const handleInsert = (values) => {
+        let iData ={
+            id : Math.floor(Math.random()* 1000),
+            ...values
+        }
+        let appoinData = JSON.parse(localStorage.getItem("apt"));
 
-        let idata = {
-            id: Math.floor(Math.random() * 1000),
-            ...values,
-        }
-
-        let appoinData = JSON.parse(localStorage.getItem('apt'));
-        if (appoinData == null) {
-            localStorage.setItem('apt', JSON.stringify([idata]));
-        }
-        else {
-            appoinData.push(idata)
-            localStorage.setItem('apt', JSON.stringify(appoinData));
-        }
+            if(appoinData === null){
+                localStorage.setItem("apt", JSON.stringify([iData]))
+            }else{
+                appoinData.push(iData)
+                localStorage.setItem("apt", JSON.stringify(appoinData))
+            }
         history.push("/listappointment");
     }
-    const handleupdateDate = (values) => {
-    let localdata = JSON.parse(localStorage.getitem("apt"));
-    let uData = localdata.map((l)=>{
-        if(l.id===values.id){
-            return values
-        }
-        else{
-            return l
-    
-        }
-    })
+    const handleUpdateDate = (values) => {
+        let localData = JSON.parse(localStorage.getItem("apt"));
+        let uData = localData.map((l) => {
+            if(l.id === values.id){
+                return values
+            }else{
+                return l
+            }
+        })
         localStorage.setItem("apt", JSON.stringify(uData));
         setUpdate(false);
         formik.resetForm();
@@ -50,7 +47,6 @@ function Bookappointment(props) {
         department: yup.string().required("please select department"),
         message: yup.string().required("please select message")
     });
-
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -58,33 +54,28 @@ function Bookappointment(props) {
             phone: '',
             date: '',
             department: '',
-            message: ''
+            message: '',
         },
-
         validationSchema: schema,
         onSubmit: values => {
             if(update){
-                handleupdateDate(values)
-            }
-            else{
+                handleUpdateDate(values)
+            }else{
                 handleInsert(values)
             }
         },
     });
-    useEffect(() => {
-        if (props.location.state) {
-            let localdata = JSON.parse(localStorage.getItem("apt"));
-            let ddata = localdata.filter((l) => l.id === props.location.state.id);
-            formik.setValues(ddata[0]);
+
+    useEffect(()=>{
+        if(props.location.state){
+            let localData = JSON.parse(localStorage.getItem("apt"));
+            let dData = localData.filter((l)=>l.id === props.location.state.id);
+            formik.setValues(dData[0]);
             setUpdate(true)
-
         }
-    }
+    },[])
 
-    )
-
-
-    const { handleSubmit, handleChange, handleBlur, errors, touched, values } = formik;
+    const{handleSubmit, errors, handleChange, touched, handleBlur, values}=formik; 
 
     return (
         <main id="main">
@@ -96,13 +87,12 @@ function Bookappointment(props) {
                             blandit quam volutpat sollicitudin. Fusce tincidunt sit amet ex in volutpat. Donec lacinia finibus tortor.
                             Curabitur luctus eleifend odio. Phasellus placerat mi et suscipit pulvinar.</p>
                     </div>
-
                     <div className='row text-center'>
                         <div className='col-6 pb-4'>
-                            <NavLink to={"/bookappointment"} activeClassName={"actbtn"}>Bookappointment</NavLink>
+                        <NavLink to={"/bookappointment"} activeClassName={"actbtn"}>BookAppointment</NavLink>
                         </div>
                         <div className='col-6 pb-4'>
-                            <NavLink to={"/listappointment"} activeClassName={"actbtn"}>listappointment</NavLink>
+                        <NavLink to={"/listappointment"} activeClassName={"actbtn"}>ListAppointment</NavLink>
                         </div>
                     </div>
                     <Formik values={formik}>
@@ -114,13 +104,15 @@ function Bookappointment(props) {
                                         name="name"
                                         className="form-control"
                                         id="name"
-                                        value={values.name}
                                         placeholder="Your Name"
+                                        data-rule="minlen:4"
+                                        data-msg="Please enter at least 4 chars"
                                         error={Boolean(errors.name && touched.name)}
                                         errorMessage={errors.name}
+                                        value={values.name}
                                         onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
+                                        onBlur={handleBlur} 
+                                        />
                                 </div>
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
                                     <Inputbox
@@ -128,13 +120,13 @@ function Bookappointment(props) {
                                         className="form-control"
                                         name="email"
                                         id="email"
-                                        value={values.email}
                                         placeholder="Your Email"
                                         error={Boolean(errors.email && touched.email)}
                                         errorMessage={errors.email}
+                                        value={values.email}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                    />
+                                        />
                                 </div>
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
                                     <Inputbox
@@ -142,14 +134,14 @@ function Bookappointment(props) {
                                         className="form-control"
                                         name="phone"
                                         id="phone"
-                                        value={values.phone}
                                         maxLength={10}
                                         placeholder="Your Phone"
                                         error={Boolean(errors.phone && touched.phone)}
                                         errorMessage={errors.phone}
+                                        value={values.phone}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                    />
+                                        />
                                 </div>
                             </div>
                             <div className="row">
@@ -159,21 +151,26 @@ function Bookappointment(props) {
                                         name="date"
                                         className="form-control datepicker"
                                         id="date"
-                                        value={values.date}
                                         placeholder="Appointment Date"
                                         error={Boolean(errors.date && touched.date)}
                                         errorMessage={errors.date}
+                                        value={values.date}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                    />
+                                        />
                                 </div>
                                 <div className="col-md-4 form-group mt-3">
-                                    <Inputbox type='select' name="department" id="department" className="form-select" error={Boolean(errors.department && touched.department)}
+                                    <Inputbox
+                                        type="select"
+                                        name="department" 
+                                        id="department" 
+                                        className="form-select" 
+                                        error={Boolean(errors.department && touched.department)}
                                         errorMessage={errors.department}
+                                        value={values.department}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={values.department}
-                                    >
+                                        >
                                         <option value>Select Department</option>
                                         <option value="Department 1">Department 1</option>
                                         <option value="Department 2">Department 2</option>
@@ -183,17 +180,17 @@ function Bookappointment(props) {
                             </div>
                             <div className="form-group mt-3">
                                 <Inputbox
-                                    type='textarea'
+                                    type="textarea"
                                     className="form-control"
                                     name="message" rows={5}
                                     placeholder="Message (Optional)"
                                     defaultValue={""}
-                                    value={values.message}
                                     error={Boolean(errors.message && touched.message)}
                                     errorMessage={errors.message}
+                                    value={values.message}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                />
+                                    />
                             </div>
                             <div className="mb-3">
                                 <div className="loading">Loading</div>
@@ -201,13 +198,16 @@ function Bookappointment(props) {
                                 <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                             </div>
                             {
-                                update ?
-                                (
-                                     <div className="text-center"><button type='submit'>Update An Appointment</button></div>
+                                update ?(
+                                    <div className="text-center">
+                                        <button type='submit'>Update An Appointment</button>
+                                    </div>
                                 )
                                 :
                                 (
-                                    <div className="text-center"><button type='submit'>Make An Appointment</button></div>
+                                    <div className="text-center">
+                                        <button type='submit'>Make An Appointment</button>
+                                    </div>
                                 )
                             }
                         </Form>
