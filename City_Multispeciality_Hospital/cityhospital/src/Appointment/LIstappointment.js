@@ -10,7 +10,7 @@ function Listappointment(props) {
         let localdata = JSON.parse(localStorage.getItem("apt"));
 
         setdata(localdata);
-    }
+   }
    const handleDelete = (id)=>{
 
        let localdata = JSON.parse(localStorage.getItem("apt"));
@@ -24,7 +24,7 @@ function Listappointment(props) {
         history.push("/bookappointment",{"id":id})
         
     }
-
+    
     useEffect(() => {
         loadData();
         },
@@ -68,7 +68,7 @@ return (
                     )
                 }
 
-            </section>
+          </section>
         </main>
 
     );
