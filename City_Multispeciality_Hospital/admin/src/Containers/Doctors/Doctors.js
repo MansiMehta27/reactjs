@@ -25,7 +25,7 @@ function Fmedisin(props) {
     const [update, setUpdate] = useState(false);
     const [uid, setUid] = useState();
 
-    const handleClickOpen = () => {
+   const handleClickOpen = () => {
         setOpen(true);
     };
 

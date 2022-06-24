@@ -24,6 +24,7 @@ function Fmedisin(props) {
     const [did, setDid] = useState();
     const [update, setUpdate] = useState(false);
     const [uid, setUid] = useState();
+    const[filterdata,setfilterdata]=useState([]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -144,12 +145,28 @@ function Fmedisin(props) {
                 handleSubmit(values);
             }
             handleClose();
+
         },
     });
 
-    console.log(formik.errors);
+   const handleSearch = (val) =>{
+        let localData = JSON.parse(localStorage.getItem("medicine"));
 
-    const columns = [
+        let fdata=localData.filter((l)=>(l.id.toString().includes(val) ||
+        l.name.toString().toLowerCase().includes(val.toLowerCase()) ||
+        l.Price.toString().includes(val)||
+        l.quantity.toString().includes(val)||
+        l.expiry.toString().includes(val)
+        
+        ))
+        setfilterdata(fdata);
+        console.log(fdata);
+        
+   }
+   let finaldata = filterdata.length>0 ? filterdata:data
+    
+
+ const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'Price', headerName: 'Price', width: 130 },
@@ -177,12 +194,21 @@ function Fmedisin(props) {
 
     return (
         <div>
+            <TextField
+                autoFocus
+                margin="dense"
+                name="Search"
+                label="Search Medicine"
+                fullWidth
+                variant="standard"
+                onChange={(e)=>handleSearch(e.target.value)}
+            />
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Medicine
             </Button>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={data}
+                    rows={finaldata}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
