@@ -22,6 +22,7 @@ import { Icon } from '@mui/material';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import PersonIcon from '@mui/icons-material/Person';
 import { NavLink } from 'react-router-dom';
+import CountertopsIcon from '@mui/icons-material/Countertops';
 
 const drawerWidth = 240;
 
@@ -84,7 +85,8 @@ export default function Layout({children}) {
   const items =[
     {label: 'Medicine', icon:<MedicalServicesIcon/>,to:'/medisin'},
     {label: 'Doctor', icon:<PersonIcon/>,to:'/doctors'},
-    {label:"Fmedisin",icon:<MedicalServicesIcon/>,to:'/fmedicine'}
+    {label:"Fmedisin",icon:<MedicalServicesIcon/>,to:'/fmedicine'},
+    {label:"Counter",icon:<CountertopsIcon/>,to:'/Counter'}
 ]
 
     return (
