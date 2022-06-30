@@ -5,12 +5,12 @@ const intialstate ={
 
 export const counterReducer=(state = intialstate,action)=>{
     switch(action.type){
-        case ActionTypes.INCREMENT_COUNDER:
+        case ActionTypes.INCREMENT_COUNTER:
         return{
              ...state,
              counter:state.counter+1
         }
-        case ActionTypes.DECREMENT_COUNDER:
+        case ActionTypes.DECREMENT_COUNTER:
         return{
              ...state,
              counter:state.counter-1

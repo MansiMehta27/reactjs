@@ -1,16 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DECREMENT_COUNDER, INCREMENT_COUNDER } from '../ActionTypes';
+import { decrementCounter, incrementCounter } from '../Action/Counter.Action';
 
 function Counter(props) {
     const dispach = useDispatch();
     const c = useSelector(state=>state.counter)
 
     const handleIncrement=()=>{
-            dispach(INCREMENT_COUNDER())
+            dispach(incrementCounter())
     }
     const handleDecrement=()=>{
-        dispach(DECREMENT_COUNDER())
+        dispach(decrementCounter())
     }
     return (
         <div>

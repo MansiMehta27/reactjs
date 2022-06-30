@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import EditIcon from '@mui/icons-material/Edit';
+import { useSelector } from 'react-redux';
 
 function Fmedisin(props) {
     const [open, setOpen] = useState(false);
@@ -25,6 +26,8 @@ function Fmedisin(props) {
     const [update, setUpdate] = useState(false);
     const [uid, setUid] = useState();
     const[filterdata,setfilterdata]=useState([]);
+
+    const counter = useSelector(state => state.counter)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -206,6 +209,7 @@ function Fmedisin(props) {
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Medicine
             </Button>
+            <p>{counter.counter}</p>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
                     rows={finaldata}

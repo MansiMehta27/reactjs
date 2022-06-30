@@ -4,7 +4,6 @@ import Bookappointment from "./Appointment/Bookappointment";
 import LIstappointment from "./Appointment/LIstappointment";
 import Footer from "./Componets/Header/Footer/Footer";
 import Header from "./Componets/Header/Header";
-import About from "./Container/About/About";
 import Contect from "./Container/Contect/Contect";
 
 import Department from "./Container/Departments/Department";
@@ -25,7 +24,7 @@ function App() {
                          <Publicroute exact path={"/"}component={Home}/>
                          <Publicroute exact path={"/doctors"}component={Doctors}/>
                           <Privateroute exact path={"/departments"}component={Department}/>
-                          <Publicroute exact path={"/about"}component={About}/>
+                        
                           <Publicroute restricted={true} exact path={"/login"}component={Login}/>
                           <Publicroute exact path={"/medisin"}component={Medisin}/>
                           <Route exact path={"/contect"}component={Contect}/>
