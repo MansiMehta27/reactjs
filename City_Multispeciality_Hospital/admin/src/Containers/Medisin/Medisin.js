@@ -11,6 +11,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect } from 'react';
+import { GET_MEDISION } from '../../Redux/ActionTypes';
+import { useDispatch } from 'react-redux';
+import { getmedicines } from '../../Redux/Action/medicin.action';
 
   function Medisin(props) {
   const [open, setOpen] = useState(false);
@@ -51,12 +54,14 @@ import { useEffect } from 'react';
     setdid('');
     handleClose('');
   }
+ const dispatch=useDispatch();
   useEffect(
     () => {
       getdata();
+      dispatch(getmedicines())
     },
-  [])
-  const handlesubmit = () => {
+    [])
+      const handlesubmit = () => {
 
     console.log(name,price,quantity,expiry)
     let data = {
